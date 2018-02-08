@@ -23,6 +23,6 @@ class ManageHomeController extends Controller
    */
   public function index()
   {
-      return view('manage.manageHome');
+      return 'ok';
   }
 }
