@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    You are marage logged in!
                 </div>
             </div>
         </div>

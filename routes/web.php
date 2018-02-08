@@ -17,6 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/auth', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 
-Route::get('/manage','HomeController@index');
+Route::get('/manage','Marage.MarageHomeController@index');
