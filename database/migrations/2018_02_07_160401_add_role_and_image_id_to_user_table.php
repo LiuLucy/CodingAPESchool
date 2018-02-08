@@ -13,7 +13,7 @@ class AddRoleAndImageIdToUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->integer('role_id');
             $table->integer('image_id');
         });
@@ -26,7 +26,7 @@ class AddRoleAndImageIdToUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['role_id', 'image_id']);
         });
     }
