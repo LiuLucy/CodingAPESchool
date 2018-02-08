@@ -1,28 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Manage;
 
 use Illuminate\Http\Request;
+use App\Manage;
+use Auth;
+use App\Http\Controllers\Controller;
 
 class ManageHomeController extends Controller
 {
-  /**
-   * Create a new controller instance.
-   *
-   * @return void
-   */
-  public function __construct()
-  {
-      $this->middleware('manage.auth');
-  }
-
-  /**
-   * Show the application dashboard.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index()
-  {
-      return 'ok';
-  }
+    public function index() {
+        return 'test';
+    }
 }
