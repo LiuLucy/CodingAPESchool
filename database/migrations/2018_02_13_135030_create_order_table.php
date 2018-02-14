@@ -19,8 +19,6 @@ class CreateOrderTable extends Migration
             $table->integer('total_price');
             $table->integer('class_id')->unsigned();
             $table->integer('parent_id')->unsigned();
-            $table->datetime('created_at');
-            $table->datetime('updated_at');
             $table->timestamps();
         });
     }

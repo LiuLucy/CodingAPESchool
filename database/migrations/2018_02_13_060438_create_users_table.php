@@ -25,8 +25,6 @@ class CreateUsersTable extends Migration
             $table->string('card_id');
             $table->string('image',50)->nullable();
             $table->integer('type_id')->nullable();
-            $table->datetime('created_at');
-            $table->datetime('updated_at');
             $table->timestamps();
             $table->string('remember_token', 100)->nullable();
         });
