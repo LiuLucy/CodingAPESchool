@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login','LoginController@show');
-Route::post('login','LoginController@login');
-Route::get('logout','LoginController@logout');
+Route::group(['prefix' => 'user'],function(){
+  Route::group(['prefix' => 'auth'],function(){
+    Route::get('login','LoginController@show');
+    Route::post('login','LoginController@login')->name('user.auth.login.post');
+    Route::get('logout','LoginController@logout');
+  });
+});
