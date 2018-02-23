@@ -13,11 +13,11 @@ class LoginController extends Controller
     }
 
     public function login() {
-      $input = request()->all();
-      $rules = [
-          'email'=>''
-      ];
-      return $input;
+        $input = request()->all();
+        $rules = [
+            'email'=>''
+        ];
+        return $input;
     }
 
     public function logout() {
