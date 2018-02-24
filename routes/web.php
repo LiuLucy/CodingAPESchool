@@ -14,12 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::group(['prefix' => 'user'],function(){
-  Route::group(['prefix' => 'auth'],function(){
-    Route::get('login','LoginController@show');
-    Route::post('login','LoginController@login')->name('user.auth.login');
-    Route::get('logout','LoginController@logout');
-  });
+
+Route::group(['prefix' => 'users'],function(){
+    Route::get('login','User\LoginController@showLoginForm');
+    Route::post('login','User\LoginController@login');
+    Route::get('register', 'User\LoginController@showRegistrationForm');
+    Route::post('register', 'User\LoginController@register');
+    Route::get('logout','User\LoginController@logout');
 });
 
 Auth::routes();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 use View;
 use Validator;
 use Illuminate\Http\Request;
@@ -13,29 +13,28 @@ class LoginController extends Controller
    *
    * @var string
    */
-  protected $guard = 'users';
-
+  protected $redirectTo = '/users';
 
   /**
-   * Custom login redirect path
+   * Specify to use manage auth guard
    *
    * @var string
    */
-  protected $loginPath = '/users/login';
+  protected $guard = 'users';
 
   /**
    * Locate login view.
    *
    * @var string
    */
-  protected $loginView = 'user.auth.login';
+  protected $loginView = 'User.auth.login';
 
   /**
    * Locate registration view.
    *
    * @var string
    */
-  protected $registerView = 'user.auth.register';
+  protected $registerView = 'User.auth.register';
 
   /**
    * Where to redirect users after login / registration.
@@ -45,25 +44,25 @@ class LoginController extends Controller
   protected $redirectAfterLogout = '/users';
 
 
-  public function __construct()
-  {
-      parent::__construct();
-      $this->redirectTo = '/users';
+
+  public function showLoginForm() {
+      return view('User.auth.login');
   }
 
+  public function showRegistrationForm() {
+      return view('User.auth.register');
+  }
 
-  public function login(Request $request)
-  {
+  public function login(Request $request) {
       if (Auth::guard('users')->attempt(['name' => $request->account, 'password' => $request->password]))
       {
-          return redirect()->intended('home');
+          return redirect()->intended('User.index');
       }
 
       return $this->sendFailedLoginResponse($request);
   }
 
-  protected function validator(array $data)
-  {
+  protected function validator(array $data) {
       return Validator::make($data, [
           'password' => 'required|min:6|confirmed',
           'email'    => 'required|email|max:255|unique:Manage,email',
@@ -71,8 +70,7 @@ class LoginController extends Controller
   }
 
 
-  protected function create(array $data)
-  {
+  protected function create(array $data) {
       return User::create([
           'name'     => $data['name'],
           'email'    => $data['email'],
