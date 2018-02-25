@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable()->unique();
             $table->string('password');
             $table->string('address')->nullable();
-            $table->string('birthday');
+            $table->date('birthday');
             $table->string('card_id');
             $table->string('image',50)->nullable();
             $table->integer('type_id')->nullable();
