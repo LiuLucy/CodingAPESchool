@@ -16,11 +16,11 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'users'],function(){
-    Route::get('login','User\LoginController@showLoginForm');
-    Route::post('login','User\LoginController@login');
-    Route::get('register', 'User\LoginController@showRegistrationForm');
-    Route::post('register', 'User\LoginController@register');
-    Route::get('logout','User\LoginController@logout');
+    Route::get('login','User\UserAuthController@showLoginForm');
+    Route::post('login','User\UserAuthController@login');
+    Route::get('register', 'User\UserAuthController@showRegistrationForm');
+    Route::post('register', 'User\UserAuthController@register');
+    Route::get('logout','User\UserAuthController@logout');
 });
 
 Auth::routes();
