@@ -20,36 +20,50 @@ class UserAuthController extends Controller
       $input = request()->all();
 
       $rules = [
-        'name' => 'required|max:50',
-        'password' => 'required|min:6|confirmed',
-        'email'    => 'required|email|max:255|unique:User,email',
+        'email' => [
+          'required',
+          'email',
+          'max:150',
+        ],
+        'password' => [
+          'required',
+          'min:6',
+        ],
       ];
 
       $validator = Validator::make($input,$rules);
 
+
       if($validator->fails()) {
-          return redirect('/user/auth/login')
+          return redirect('/users/login')
                 ->withErrors($validator)
                 ->withInput();
       }
 
       //撈資料使用者資料
-      $User = User::where('email',$input['email'])->firstOrFail();
+      $User = User::where('email', $input['email'])->first();
+        if ($User === null) {
+            return '沒有資料';// user doesn't exist
+        };
+
       //驗證密碼
       $is_password_correct = Hash::check($input['password'], $User->password);
+
+
+
 
       if(!$is_password_correct) {
           $error_message = [
             'msg' => ['密碼驗證錯誤',],
-
           ];
 
-          return redirect('/User/auth/login')
+          return redirect('/users/login')
                 ->withErrors($error_message)
                 ->withInput();
       }
 
       session()->put('user_id',$User->id);
+
 
       return redirect()->intended('/');
 
@@ -84,12 +98,26 @@ class UserAuthController extends Controller
             'required',
             'min:6',
         ],
+        'gender' => [
+            'required',
+            'in:M,F'
+        ],
+        'card_id' => [
+            'required',
+            'size:10',
+        ],
+        'phone' => [
+            'required',
+            'max:10',
+            'regex:/(09)[0-9]{8}/',//09開頭後面有八個數字
+            'size:10',
+        ],
       ];
 
       $validator = Validator::make($input,$rules);
 
       if($validator->fails()) {
-          return redirect('/User/auth/register')->withErrors($validator);
+          return redirect('/users/register')->withErrors($validator);
       }
 
       //對密碼加密
@@ -97,8 +125,19 @@ class UserAuthController extends Controller
 
       $Users = User::create($input);
 
-      //寄信給註冊好的使用者
-      
+      //寄信給註冊的使用者
+      // $mail_binding = [
+      //   'name' => $input['name']
+      // ];
+      //
+      // Mail::send('email.registerEmailNotification',$mail_binding,
+      //   function($mail) use ($input){
+      //       $mail->to($input['email']);
+      //       $mail->from('lucy933626@gmail.com');
+      //       $mail->subject('猿創立程式設計學校，歡迎您使用我們的系統');
+      //   });
+
+        return redirect('/users/login');
   }
 
   public function logout() {
