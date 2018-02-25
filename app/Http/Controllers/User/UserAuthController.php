@@ -95,18 +95,11 @@ class UserAuthController extends Controller
       //對密碼加密
       $input['password'] = Hash::make($input['password']);
 
+      $Users = User::create($input);
+
+      //寄信給註冊好的使用者
+      
   }
-
-
-
-  protected function create(array $data) {
-      return User::create([
-          'name'     => $data['name'],
-          'email'    => $data['email'],
-          'password' => bcrypt($data['password']),
-      ]);
-  }
-
 
   public function logout() {
       session()->forget('user_id');
