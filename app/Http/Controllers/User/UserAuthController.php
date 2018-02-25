@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 
 class UserAuthController extends Controller
 {
-  
+
   public function showLoginForm() {
       return view('User/auth/login');
   }
@@ -56,6 +56,46 @@ class UserAuthController extends Controller
   }
 
 
+  public function showRegistrationForm() {
+      return view('User/auth/register');
+  }
+
+
+  public function register() {
+      $input = request()->all();
+
+      //驗證有沒有寫對格式
+      $rules = [
+        'name' => [
+            'required',
+            'max:50',
+        ],
+        'email' => [
+            'required',
+            'max:150',
+            'email',
+        ],
+        'password' => [
+            'required',
+            'same:password_confirmation',
+            'min:6',
+        ],
+        'password_confirmation' => [
+            'required',
+            'min:6',
+        ],
+      ];
+
+      $validator = Validator::make($input,$rules);
+
+      if($validator->fails()) {
+          return redirect('/User/auth/register')->withErrors($validator);
+      }
+
+      //對密碼加密
+      $input['password'] = Hash::make($input['password']);
+
+  }
 
 
 
