@@ -12,6 +12,8 @@ use App\Http\Controllers\Controller;
 class UserAuthController extends Controller
 {
 
+  protected $loginView = '/users/login';
+
   public function showLoginForm() {
       return view('User/auth/login');
   }
@@ -35,37 +37,34 @@ class UserAuthController extends Controller
 
 
       if($validator->fails()) {
-          return redirect('/users/login')
+          return redirect($this->loginView)
                 ->withErrors($validator)
                 ->withInput();
       }
 
       //撈資料使用者資料
-      $User = User::where('email', $input['email'])->first();
+        $User = $this->getUserDatas($input);
         if ($User === null) {
-            return '沒有資料';// user doesn't exist
-        };
+
+          return redirect($this->loginView)
+                ->withErrors($this->getErrorMsg())
+                ->withInput();
+
+        }
 
       //驗證密碼
       $is_password_correct = Hash::check($input['password'], $User->password);
-
-
-
-
       if(!$is_password_correct) {
-          $error_message = [
-            'msg' => ['密碼驗證錯誤',],
-          ];
 
-          return redirect('/users/login')
-                ->withErrors($error_message)
+          return redirect($this->loginView)
+                ->withErrors($this->getErrorMsg())
                 ->withInput();
       }
 
       session()->put('user_id',$User->id);
 
 
-      return redirect()->intended('/');
+      return view('User.index',['name' => $User->name]);
 
   }
 
@@ -125,24 +124,26 @@ class UserAuthController extends Controller
 
       $Users = User::create($input);
 
-      //寄信給註冊的使用者
-      // $mail_binding = [
-      //   'name' => $input['name']
-      // ];
-      //
-      // Mail::send('email.registerEmailNotification',$mail_binding,
-      //   function($mail) use ($input){
-      //       $mail->to($input['email']);
-      //       $mail->from('lucy933626@gmail.com');
-      //       $mail->subject('猿創立程式設計學校，歡迎您使用我們的系統');
-      //   });
-
-        return redirect('/users/login');
+        return redirect($this->loginView);
   }
 
   public function logout() {
       session()->forget('user_id');
       return redirect('/');
   }
+
+
+  public function getErrorMsg() {
+        $error_message = [
+          'error_msg' => ['電子郵件或密碼驗證錯誤輕重新輸入',],
+        ];
+        return $error_message;
+  }
+
+  public function getUserDatas($input) {
+      return User::where('email', $input['email'])->first();
+  }
+
+
 
 }

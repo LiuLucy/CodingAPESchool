@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware' => ['authLogin']], function () {
+    Route::get('index', function () {
+        return view('User.index');
+    });
+});
+
 Route::group(['prefix' => 'users'],function(){
     Route::get('login','User\UserAuthController@showLoginForm');
     Route::post('login','User\UserAuthController@login');

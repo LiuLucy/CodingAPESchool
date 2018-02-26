@@ -13,11 +13,12 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-                                @if ($errors->has('email'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        @if ($errors->has('email'))
+                                          <strong class="error_mas">{{ $errors->first('email') }}</strong>
+                                        @endif
                                     </span>
-                                @endif
+
                             </div>
 
                         </div>
@@ -28,11 +29,16 @@
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" required>
 
-                                @if ($errors->has('password'))
+
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                      @if ($errors->has('password'))
+                                          <strong class="error_mas">{{ $errors->first('password') }}</strong>
+                                      @endif
+                                          <strong class="error_mas">{{ $errors->first('error_msg') }}</strong>
                                     </span>
-                                @endif
+
+
+
                             </div>
                         </div>
 

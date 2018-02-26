@@ -6,7 +6,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    猿創力程式設計學校
                 </div>
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
