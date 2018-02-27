@@ -20,7 +20,7 @@ class UserAuthController extends Controller
 
   public function login() {
       $input = request()->all();
-
+      //驗證規則
       $rules = [
         'email' => [
           'required',
@@ -35,7 +35,6 @@ class UserAuthController extends Controller
 
       $validator = Validator::make($input,$rules);
 
-
       if($validator->fails()) {
           return redirect($this->loginView)
                 ->withErrors($validator)
@@ -43,29 +42,26 @@ class UserAuthController extends Controller
       }
 
       //撈資料使用者資料
-        $User = $this->getUserDatas($input);
-        if ($User === null) {
+      $User = $this->getUserDatas($input);
 
-          return redirect($this->loginView)
-                ->withErrors($this->getErrorMsg())
-                ->withInput();
-
+      if ($User === null) {
+        return redirect($this->loginView)
+              ->withErrors($this->getErrorMsg())
+              ->withInput();
         }
 
       //驗證密碼
       $is_password_correct = Hash::check($input['password'], $User->password);
-      if(!$is_password_correct) {
 
+      if(!$is_password_correct) {
           return redirect($this->loginView)
-                ->withErrors($this->getErrorMsg())
-                ->withInput();
+              ->withErrors($this->getErrorMsg())
+              ->withInput();
       }
 
       session()->put('user_id',$User->id);
 
-
       return view('User.index',['name' => $User->name]);
-
   }
 
 

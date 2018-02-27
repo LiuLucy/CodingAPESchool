@@ -29,6 +29,4 @@ Route::group(['prefix' => 'users'],function(){
     Route::get('logout','User\UserAuthController@logout');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+// Auth::routes();

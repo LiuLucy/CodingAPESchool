@@ -28,17 +28,12 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" required>
-
-
                                     <span class="help-block">
                                       @if ($errors->has('password'))
                                           <strong class="error_mas">{{ $errors->first('password') }}</strong>
                                       @endif
                                           <strong class="error_mas">{{ $errors->first('error_msg') }}</strong>
                                     </span>
-
-
-
                             </div>
                         </div>
 
@@ -51,7 +46,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <?php session(['test' => 'Lucy']); ?>
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
