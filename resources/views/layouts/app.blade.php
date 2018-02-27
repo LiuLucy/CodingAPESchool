@@ -42,13 +42,13 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                       <!-- Authentication Links -->
-                    @if (Auth::guard('users')->guest())
-                        <li><a href="{{ url('/users/login') }}">Login</a></li>
-                        <li><a href="{{ url('/users/register') }}">Register</a></li>
+                    @if(!session()->has('user_id'))
+                        <li><a href="{{ url('/users/login') }}">登入</a></li>
+                        <li><a href="{{ url('/users/register') }}">註冊</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{Auth::guard('users')->user()->name}} <span class="caret"></span>
+                                {{$name}} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu" >
