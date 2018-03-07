@@ -6,6 +6,7 @@ use View;
 use Validator;
 use App\User;
 use Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +16,7 @@ class UserAuthController extends Controller
   protected $loginView = '/users/login';
 
   public function showLoginForm() {
-      return view('User/auth/login');
+       return view('User/auth/login');
   }
 
   public function login() {
@@ -66,6 +67,7 @@ class UserAuthController extends Controller
 
 
   public function showRegistrationForm() {
+      session()->forget('is_done');
       return view('User/auth/register');
   }
 
@@ -73,7 +75,6 @@ class UserAuthController extends Controller
   public function register() {
       $input = request()->all();
 
-      //驗證有沒有寫對格式
       $rules = [
         'name' => [
             'required',
@@ -119,8 +120,44 @@ class UserAuthController extends Controller
       $input['password'] = Hash::make($input['password']);
 
       $Users = User::create($input);
+      session()->put('studentNumber',request('studentNumber'));
+      return redirect('/users/register/student');
+  }
 
-        return redirect($this->loginView);
+
+  public function showStudentForm() {
+      session()->put('is_done','1');
+      return view('User.auth.register');
+  }
+
+  public function registerStudent() {
+      $input = request()->all();
+
+      $rules = [
+        'name.*' => 'required',
+        'card_id.*' => 'required',
+        'gender.*' => 'required',
+      ];
+      $validator = Validator::make($input,$rules);
+
+      if($validator->fails()) {
+          return redirect('/users/register/student')->withErrors($validator);
+      }
+
+      $inputName = ['name', 'card_id','gender','birthday'];
+      for ($i=0; $i < session()->get('studentNumber') ; $i++) {
+        for ($j=0; $j < count($inputName); $j++) {
+           $studentData = [$inputName[$j] => $input[$inputName[$j]][$i],];
+           echo $studentData[$inputName[$j]]."<br>";
+        }
+
+      }
+
+      // $input['password'] = Hash::make($input['password']);
+
+      // $Users = User::create($input);
+      // $Users->type_id = request('type_id');
+      // return redirect('/users/login');
   }
 
   public function logout() {
