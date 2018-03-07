@@ -30,7 +30,6 @@ class UserAuthController extends Controller
         ],
         'password' => [
           'required',
-          'min:6',
         ],
       ];
 
@@ -87,12 +86,6 @@ class UserAuthController extends Controller
         ],
         'password' => [
             'required',
-            'same:password_confirmation',
-            'min:6',
-        ],
-        'password_confirmation' => [
-            'required',
-            'min:6',
         ],
         'gender' => [
             'required',
@@ -131,8 +124,8 @@ class UserAuthController extends Controller
   }
 
   public function registerStudent() {
-      $input = request()->all();
-
+      $input = request()->except(['_token']);
+      // return $input;
       $rules = [
         'name.*' => 'required',
         'card_id.*' => 'required',
@@ -144,20 +137,30 @@ class UserAuthController extends Controller
           return redirect('/users/register/student')->withErrors($validator);
       }
 
-      $inputName = ['name', 'card_id','gender','birthday'];
-      for ($i=0; $i < session()->get('studentNumber') ; $i++) {
-        for ($j=0; $j < count($inputName); $j++) {
-           $studentData = [$inputName[$j] => $input[$inputName[$j]][$i],];
-           echo $studentData[$inputName[$j]]."<br>";
-        }
-
-      }
-
       // $input['password'] = Hash::make($input['password']);
 
-      // $Users = User::create($input);
-      // $Users->type_id = request('type_id');
-      // return redirect('/users/login');
+
+      for ($i=0; $i < session()->get('studentNumber') ; $i++) {
+        $userStudent = new User;
+        foreach ($input as $key => $value) {
+            $userStudent->$key = $value[$i];
+        }
+        $userStudent->save();
+      }
+
+      // User::create($input['name'][0]);
+      // $userStudent = new User;
+      // for ($i=0; $i <  ; $i++) {
+      //   for ($j=0; $j < count($inputName); $j++) {
+      //     //$test = array($inputName[$j] => request()->input("$inputName[$j].$i"),);
+      //       $user = User::create(array($inputName[$j] => request()->input("$inputName[$j].$i"),));
+      //   }
+      //   //$userStudent->save();
+      // }
+
+
+
+      return redirect('/users/login');
   }
 
   public function logout() {
