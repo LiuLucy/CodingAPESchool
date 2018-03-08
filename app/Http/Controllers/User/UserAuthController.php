@@ -89,7 +89,7 @@ class UserAuthController extends Controller
         ],
         'gender' => [
             'required',
-            'in:M,F'
+            'in:M,F',
         ],
         'card_id' => [
             'required',
@@ -125,41 +125,32 @@ class UserAuthController extends Controller
 
   public function registerStudent() {
       $input = request()->except(['_token']);
-      // return $input;
       $rules = [
-        'name.*' => 'required',
-        'card_id.*' => 'required',
-        'gender.*' => 'required',
+        'name.*' => [
+          'required',
+        ],
+        'card_id.*' => [
+          'required',
+        ],
+        'gender.*' => [
+          'required',
+        ],
       ];
+
       $validator = Validator::make($input,$rules);
 
       if($validator->fails()) {
           return redirect('/users/register/student')->withErrors($validator);
       }
 
-      // $input['password'] = Hash::make($input['password']);
-
-
       for ($i=0; $i < session()->get('studentNumber') ; $i++) {
         $userStudent = new User;
         foreach ($input as $key => $value) {
+            $input['password'][$i] = Hash::make($input['password'][$i]);
             $userStudent->$key = $value[$i];
         }
         $userStudent->save();
       }
-
-      // User::create($input['name'][0]);
-      // $userStudent = new User;
-      // for ($i=0; $i <  ; $i++) {
-      //   for ($j=0; $j < count($inputName); $j++) {
-      //     //$test = array($inputName[$j] => request()->input("$inputName[$j].$i"),);
-      //       $user = User::create(array($inputName[$j] => request()->input("$inputName[$j].$i"),));
-      //   }
-      //   //$userStudent->save();
-      // }
-
-
-
       return redirect('/users/login');
   }
 
