@@ -24,6 +24,8 @@ class User extends Authenticatable {
         'phone',
         'card_id',
         'birthday',
+        'gender',
+        'type_id',
     ];
 
     /**
