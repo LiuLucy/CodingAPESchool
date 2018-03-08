@@ -22,6 +22,8 @@ Route::group(['middleware' => ['authLogin']], function () {
 });
 
 Route::group(['prefix' => 'users'],function(){
+    Route::get('register/student','User\UserAuthController@showStudentForm');
+    Route::post('register/student','User\UserAuthController@registerStudent');
     Route::get('login','User\UserAuthController@showLoginForm');
     Route::post('login','User\UserAuthController@login');
     Route::get('register', 'User\UserAuthController@showRegistrationForm');

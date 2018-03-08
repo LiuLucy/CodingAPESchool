@@ -54,3 +54,4 @@
     </div>
 </div>
 <input type="hidden" name="type_id[]" value="2">
+<input type="hidden" name="password[]" value="0">

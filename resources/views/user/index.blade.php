@@ -8,9 +8,9 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    @if (session('status'))
+                    @if (session('user_id'))
                         <div class="alert alert-success">
-                            {{ session('status') }}
+                            {{ session('user_id') }}
                         </div>
                     @endif
                     You are logged in this page,you are User!
