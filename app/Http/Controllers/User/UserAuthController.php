@@ -15,6 +15,10 @@ class UserAuthController extends Controller
 
   protected $loginView = '/users/login';
 
+  protected $regristView = '/users/register';
+
+  protected $studentRegristView = '/users/register/student';
+
   public function showLoginForm() {
        return view('User/auth/login');
   }
@@ -23,10 +27,9 @@ class UserAuthController extends Controller
       $input = request()->all();
       //驗證規則
       $rules = [
-        'email' => [
+        'card_id' => [
           'required',
-          'email',
-          'max:150',
+          'size:10',
         ],
         'password' => [
           'required',
@@ -41,14 +44,13 @@ class UserAuthController extends Controller
                 ->withInput();
       }
 
-      //撈資料使用者資料
-      $User = $this->getUserDatas($input);
+      $User = $this->getUserCardId($input);
 
       if ($User === null) {
         return redirect($this->loginView)
               ->withErrors($this->getErrorMsg())
               ->withInput();
-        }
+      }
 
       //驗證密碼
       $is_password_correct = Hash::check($input['password'], $User->password);
@@ -69,7 +71,6 @@ class UserAuthController extends Controller
       session()->forget('is_done');
       return view('User/auth/register');
   }
-
 
   public function register() {
       $input = request()->all();
@@ -103,6 +104,27 @@ class UserAuthController extends Controller
         ],
       ];
 
+      $User = $this->getUserCardId($input);
+
+      if (!$User == null) {
+        $errorCardIdMsg = [
+          'error_regist_card_id' => ['身份證錯誤請在次確認',],
+        ];
+        return redirect($this->regristView)
+              ->withErrors($errorCardIdMsg)
+              ->withInput();
+      }
+      $User = $this->getUserEmail($input);
+
+      if (!$User == null) {
+        $errorCardIdMsg = [
+          'error_regist_email' => ['Email已有人使用',],
+        ];
+        return redirect($this->regristView)
+              ->withErrors($errorCardIdMsg)
+              ->withInput();
+      }
+
       $validator = Validator::make($input,$rules);
 
       if($validator->fails()) {
@@ -116,7 +138,6 @@ class UserAuthController extends Controller
       session()->put('studentNumber',request('studentNumber'));
       return redirect('/users/register/student');
   }
-
 
   public function showStudentForm() {
       session()->put('is_done','1');
@@ -136,17 +157,25 @@ class UserAuthController extends Controller
           'required',
         ],
       ];
-
       $validator = Validator::make($input,$rules);
-
       if($validator->fails()) {
           return redirect('/users/register/student')->withErrors($validator);
       }
 
+      $User = $this->getUserCardId($input);
+      if (!$User == null) {
+        $errorCardIdMsg = [
+          'error_regist_card_id' => ['身份證錯誤請在次確認',],
+        ];
+        return redirect($this->studentRegristView)
+              ->withErrors($errorCardIdMsg)
+              ->withInput();
+      }
+      //將學員資料存取到資料庫
       for ($i=0; $i < session()->get('studentNumber') ; $i++) {
+        $input['password'][$i] = Hash::make($input['password'][$i]);
         $userStudent = new User;
         foreach ($input as $key => $value) {
-            $input['password'][$i] = Hash::make($input['password'][$i]);
             $userStudent->$key = $value[$i];
         }
         $userStudent->save();
@@ -162,12 +191,16 @@ class UserAuthController extends Controller
 
   public function getErrorMsg() {
         $error_message = [
-          'error_msg' => ['電子郵件或密碼驗證錯誤輕重新輸入',],
+          'error_msg' => ['帳號或密碼驗證錯誤請重新輸入',],
         ];
         return $error_message;
   }
 
-  public function getUserDatas($input) {
+  public function getUserCardId($input) {
+      return User::where('card_id', $input['card_id'])->first();
+  }
+
+  public function getUserEmail($input) {
       return User::where('email', $input['email'])->first();
   }
 

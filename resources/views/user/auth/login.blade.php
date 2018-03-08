@@ -8,14 +8,14 @@
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{action('User\UserAuthController@login')}}">
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">電子郵件</label>
+                        <div class="form-group{{ $errors->has('card_id') ? ' has-error' : '' }}">
+                            <label for="card_id" class="col-md-4 control-label">帳號</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                                <input id="card_id" type="text" class="form-control" name="card_id" value="{{ old('card_id') }}" required autofocus>
                                     <span class="help-block">
-                                        @if ($errors->has('email'))
-                                          <strong class="error_mas">{{ $errors->first('email') }}</strong>
+                                        @if ($errors->has('card_id'))
+                                          <strong class="error_mas">{{ $errors->first('card_id') }}</strong>
                                         @endif
                                     </span>
 
@@ -41,7 +41,7 @@
                             <div class="col-md-6 col-md-offset-4">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> 記住我
                                     </label>
                                 </div>
                             </div>

@@ -13,7 +13,7 @@
 </div>
 
 <div class="form-group{{ $errors->has('card_id') ? ' has-error' : '' }}">
-    <label for="card_id" class="col-md-4 control-label">身分證字號</label>
+    <label for="card_id" class="col-md-4 control-label">身份證字號</label>
 
     <div class="col-md-6">
           <input id="card_id" type="text" class="form-control" name="card_id[]" required>

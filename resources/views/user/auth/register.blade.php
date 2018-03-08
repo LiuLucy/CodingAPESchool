@@ -37,6 +37,7 @@
                                   </span>
                               @endif
                           </div>
+                          <strong class="error_mas">{{ $errors->first('error_regist_email') }}</strong>
                       </div>
 
                       <input id="password" type="hidden" class="form-control" name="password" value="0" required>
@@ -71,7 +72,7 @@
                       </div>
 
                       <div class="form-group{{ $errors->has('card_id') ? ' has-error' : '' }}">
-                          <label for="card_id" class="col-md-4 control-label">身分證字號</label>
+                          <label for="card_id" class="col-md-4 control-label">身份證字號</label>
 
                           <div class="col-md-6">
                                 <input id="card_id" type="text" class="form-control" name="card_id" required>
@@ -81,6 +82,7 @@
                                   </span>
                               @endif
                           </div>
+                          <strong class="error_mas">{{ $errors->first('error_regist_card_id') }}</strong>
                       </div>
 
                       <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
@@ -104,9 +106,6 @@
                                   <option value="1">1</option>
                                   <option value="2">2</option>
                                   <option value="3">3</option>
-                                  <option value="4">4</option>
-                                  <option value="5">5</option>
-                                  <option value="6">6</option>
                               </select>
                           </div>
                       </div>
@@ -128,6 +127,9 @@
                             <br>
                             <br>
                         @endfor
+                        <span class="help-block">
+                            <strong class="error_mas">{{ $errors->first('error_regist_card_id') }}</strong>
+                        </span>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
