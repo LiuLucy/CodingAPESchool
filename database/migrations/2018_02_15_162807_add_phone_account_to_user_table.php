@@ -14,8 +14,8 @@ class AddPhoneAccountToUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('account');
-            $table->string('phone');
+            $table->string('account')->nullable();
+            $table->string('phone')->nullable();
         });
     }
 

@@ -14,14 +14,21 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::group(['prefix' => 'user'],function(){
-  Route::group(['prefix' => 'auth'],function(){
-    Route::get('login','LoginController@show');
-    Route::post('login','LoginController@login')->name('user.auth.login');
-    Route::get('logout','LoginController@logout');
-  });
+
+Route::group(['middleware' => ['authLogin']], function () {
+    Route::get('index', function () {
+        return view('User.index');
+    });
 });
 
-Auth::routes();
+Route::group(['prefix' => 'users'],function(){
+    Route::get('register/student','User\UserAuthController@showStudentForm');
+    Route::post('register/student','User\UserAuthController@registerStudent');
+    Route::get('login','User\UserAuthController@showLoginForm');
+    Route::post('login','User\UserAuthController@login');
+    Route::get('register', 'User\UserAuthController@showRegistrationForm');
+    Route::post('register', 'User\UserAuthController@register');
+    Route::get('logout','User\UserAuthController@logout');
+});
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Auth::routes();
