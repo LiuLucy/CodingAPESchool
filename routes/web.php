@@ -31,4 +31,12 @@ Route::group(['prefix' => 'users'],function(){
     Route::get('logout','User\UserAuthController@logout');
 });
 
+Route::group(['prefix'=>'manage'],function(){
+    Route::get('login','Manage\ManageAuthController@showLoginForm');
+    Route::post('login','Manage\ManageAuthController@login');
+    Route::get('register', 'Manage\ManageAuthController@showregisterForm');
+    Route::post('register', 'Manage\ManageAuthController@register');
+    Route::get('logout','Manage\ManageAuthController@logout');
+});
+
 // Auth::routes();
