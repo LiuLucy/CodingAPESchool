@@ -1,4 +1,5 @@
 <?php
+use App\User;
 
 return [
 
@@ -50,6 +51,10 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+        'manage' => [
+            'driver' => 'token',
+            'provider' => 'manage',
+        ],
     ],
 
     /*
@@ -73,6 +78,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+        'manage' => [
+            'driver' => 'eloquent',
+            'model' => App\Manage::class,
         ],
         // 'user' => [
         //     'driver' => 'database',
@@ -99,6 +108,12 @@ return [
         'users' => [
             'provider' => 'users',
             'email' => 'auth.emails.password',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'manage' => [
+            'provider' => 'manage',
+            'email' => 'auth.email.password',
             'table' => 'password_resets',
             'expire' => 60,
         ],

@@ -17,8 +17,9 @@ class CreateManageTable extends Migration
           $table->increments('id');
           $table->integer('group_id');
           $table->string('name');
-          $table->string('username')->unique();
+          $table->string('nickname')->unique();
           $table->string('password');
+          $table->string('gender',1)->default('M');
           $table->string('email')->unique();
           $table->string('phone');
           $table->rememberToken();
