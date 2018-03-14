@@ -103,18 +103,7 @@ class UserAuthController extends Controller
             'size:10',
         ],
       ];
-
-      $User = $this->getUserCardId($input);
-
-      if (!$User == null) {
-        $errorCardIdMsg = [
-          'error_regist_card_id' => ['身份證錯誤請在次確認',],
-        ];
-        return redirect($this->regristView)
-              ->withErrors($errorCardIdMsg)
-              ->withInput();
-      }
-      $User = $this->getUserEmail($input);
+      $User = $this->getUserData($input['email'],'email');
 
       if (!$User == null) {
         $errorCardIdMsg = [
@@ -124,6 +113,18 @@ class UserAuthController extends Controller
               ->withErrors($errorCardIdMsg)
               ->withInput();
       }
+
+      $User = $this->getUserData($input['card_id'],'card_id');
+
+      if (!$User == null) {
+        $errorCardIdMsg = [
+          'error_regist_card_id' => ['身份證錯誤請在次確認',],
+        ];
+        return redirect($this->regristView)
+              ->withErrors($errorCardIdMsg)
+              ->withInput();
+      }
+
 
       $validator = Validator::make($input,$rules);
 
@@ -135,7 +136,7 @@ class UserAuthController extends Controller
       $input['password'] = Hash::make($input['password']);
 
       $Users = User::create($input);
-      session()->put('studentNumber',request('studentNumber'));
+      session()->put('studentNumber',request('studentNumber'));//把學生的數量存起來
       return redirect('/users/register/student');
   }
 
@@ -196,13 +197,10 @@ class UserAuthController extends Controller
         return $error_message;
   }
 
-  public function getUserCardId($input) {
-      return User::where('card_id', $input['card_id'])->first();
+  public function getUserData($input,$getName) {
+      return User::where($getName, $input)->first();
   }
 
-  public function getUserEmail($input) {
-      return User::where('email', $input['email'])->first();
-  }
 
 
 
