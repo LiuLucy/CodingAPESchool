@@ -24,6 +24,7 @@ class UserAuthController extends Controller
   }
 
   public function login() {
+      session()->forget('user_id');
       $input = request()->all();
       //驗證規則
       $rules = [
@@ -44,7 +45,7 @@ class UserAuthController extends Controller
                 ->withInput();
       }
 
-      $User = $this->getUserCardId($input);
+      $User = $this->getUserData($input['card_id'],"card_id");
 
       if ($User === null) {
         return redirect($this->loginView)
@@ -134,8 +135,8 @@ class UserAuthController extends Controller
 
       //對密碼加密
       $input['password'] = Hash::make($input['password']);
-
-      $Users = User::create($input);
+      session()->put('parentData',$input);
+      // $Users = User::create($input);
       session()->put('studentNumber',request('studentNumber'));//把學生的數量存起來
       return redirect('/users/register/student');
   }
@@ -153,9 +154,11 @@ class UserAuthController extends Controller
         ],
         'card_id.*' => [
           'required',
+          'size:10',
         ],
         'gender.*' => [
           'required',
+          'in:M,F',
         ],
       ];
       $validator = Validator::make($input,$rules);
@@ -163,7 +166,7 @@ class UserAuthController extends Controller
           return redirect('/users/register/student')->withErrors($validator);
       }
 
-      $User = $this->getUserCardId($input);
+      $User = $this->getUserData($input['card_id'],"card_id");
       if (!$User == null) {
         $errorCardIdMsg = [
           'error_regist_card_id' => ['身份證錯誤請在次確認',],
@@ -172,7 +175,10 @@ class UserAuthController extends Controller
               ->withErrors($errorCardIdMsg)
               ->withInput();
       }
+
       //將學員資料存取到資料庫
+      $parentData = session()->get('parentData');
+      User::create($parentData);
       for ($i=0; $i < session()->get('studentNumber') ; $i++) {
         $input['password'][$i] = Hash::make($input['password'][$i]);
         $userStudent = new User;
