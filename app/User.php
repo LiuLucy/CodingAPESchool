@@ -26,6 +26,7 @@ class User extends Authenticatable {
         'birthday',
         'gender',
         'type_id',
+        'parent_id',
     ];
 
     /**

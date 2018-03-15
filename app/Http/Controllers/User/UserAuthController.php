@@ -20,6 +20,7 @@ class UserAuthController extends Controller
   protected $studentRegristView = '/users/register/student';
 
   public function showLoginForm() {
+    session()->forget('user_id');
        return view('User/auth/login');
   }
 
@@ -158,7 +159,7 @@ class UserAuthController extends Controller
         ],
         'gender.*' => [
           'required',
-          'in:M,F',
+          'in:M,F'
         ],
       ];
       $validator = Validator::make($input,$rules);
@@ -179,12 +180,15 @@ class UserAuthController extends Controller
       //將學員資料存取到資料庫
       $parentData = session()->get('parentData');
       User::create($parentData);
+
+      $parentId = $this->getUserData($parentData['card_id'],"card_id");
       for ($i=0; $i < session()->get('studentNumber') ; $i++) {
         $input['password'][$i] = Hash::make($input['password'][$i]);
         $userStudent = new User;
         foreach ($input as $key => $value) {
             $userStudent->$key = $value[$i];
         }
+        $userStudent->parent_id = $parentId->id;
         $userStudent->save();
       }
       return redirect('/users/login');
@@ -206,8 +210,5 @@ class UserAuthController extends Controller
   public function getUserData($input,$getName) {
       return User::where($getName, $input)->first();
   }
-
-
-
 
 }

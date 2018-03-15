@@ -18,7 +18,6 @@
                                           <strong class="error_mas">{{ $errors->first('card_id') }}</strong>
                                         @endif
                                     </span>
-
                             </div>
 
                         </div>
@@ -46,7 +45,6 @@
                                 </div>
                             </div>
                         </div>
-                        <?php session(['test' => 'Lucy']); ?>
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
@@ -56,6 +54,7 @@
                         </div>
                           {{ csrf_field() }}
                     </form>
+
                 </div>
             </div>
         </div>
