@@ -31,13 +31,15 @@
                           <div class="col-md-6">
                               <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
 
-                              @if ($errors->has('email'))
                                   <span class="help-block">
-                                      <strong>{{ $errors->first('email') }}</strong>
+                                      @if ($errors->has('email'))
+                                          <strong>{{ $errors->first('email') }}</strong>
+                                      @endif
+                                      <strong class="error_mas">{{ $errors->first('error_regist_email') }}</strong>
                                   </span>
-                              @endif
+
                           </div>
-                          <strong class="error_mas">{{ $errors->first('error_regist_email') }}</strong>
+
                       </div>
 
                       <input id="password" type="hidden" class="form-control" name="password" value="0" required>
@@ -76,13 +78,13 @@
 
                           <div class="col-md-6">
                                 <input id="card_id" type="text" class="form-control" name="card_id" required>
-                              @if ($errors->has('card_id'))
                                   <span class="help-block">
-                                      <strong>{{ $errors->first('card_id') }}</strong>
+                                      @if ($errors->has('card_id'))
+                                          <strong>{{ $errors->first('card_id') }}</strong>
+                                      @endif
+                                      <strong class="error_mas">{{ $errors->first('error_regist_card_id') }}</strong>
                                   </span>
-                              @endif
                           </div>
-                          <strong class="error_mas">{{ $errors->first('error_regist_card_id') }}</strong>
                       </div>
 
                       <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
