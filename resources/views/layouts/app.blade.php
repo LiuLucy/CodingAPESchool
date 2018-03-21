@@ -16,11 +16,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-      <nav class="navbar navbar-expand-sm navbar-dark bg-info">
-      <a href="{{ url('/') }}"><img src="{{ asset('images/CodingAPE_Logo.png') }}" alt=""></a>
-     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
-       <span class="navbar-toggler-icon"></span>
-     </button>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-info">
+        <a href="{{ url('/') }}"><img src="{{ asset('images/CodingAPE_Logo.png') }}" alt=""></a>
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+       </button>
 
      <div class="collapse navbar-collapse" id="navbarsExample03">
        <ul class="navbar-nav mr-auto">
@@ -54,7 +54,18 @@
       </div>
     </nav>
     @yield('content')
+    <footer class="footer bg-info">
+       <h5>Coding APE 猿創力程式設計學校</h5>
+       <h5>02-2766-0600</h5>
+       <h5>02-2753-5261</h5>
+       <h5>台北市基隆路一段178號7樓</h5>
+       <h5>service@codingapeschool.com</h5>
 
+
+
+
+
+    </footer>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
