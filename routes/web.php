@@ -12,8 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
+
+Route::get('camp','HomeController@index');
 
 Route::group(['middleware' => ['authLogin']], function () {
     Route::get('index', function () {
