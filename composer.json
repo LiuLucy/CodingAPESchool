@@ -3,13 +3,18 @@
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
+    "authors": [{
+        "name": "CodingAPE",
+        "email": "CodingAPE@google.com"
+    }],
     "type": "project",
     "require": {
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "leochien/laravel-spgateway": "^1.1"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -24,6 +29,7 @@
             "database/factories"
         ],
         "psr-4": {
+            "LeoChien\\Spgateway\\": "src/",
             "App\\": "app/"
         }
     },
@@ -36,6 +42,9 @@
         "laravel": {
             "dont-discover": [
             ]
+        },
+        "aliases": {
+            "Spgateway": "LeoChien\\Spgateway\\Facades"
         }
     },
     "scripts": {
