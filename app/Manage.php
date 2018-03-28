@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 
 class Manage extends Authenticatable
 {
@@ -24,6 +23,7 @@ class Manage extends Authenticatable
       'phone',
       'gender',
       'nickname',
+      'group_id',
   ];
 
   /**

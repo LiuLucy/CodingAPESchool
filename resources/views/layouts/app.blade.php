@@ -16,7 +16,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-info">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-info top-navbar">
         <a href="{{ url('/') }}"><img src="{{ asset('images/CodingAPE_Logo.png') }}" alt=""></a>
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
@@ -60,11 +60,6 @@
        <h5>02-2753-5261</h5>
        <h5>台北市基隆路一段178號7樓</h5>
        <h5>service@codingapeschool.com</h5>
-
-
-
-
-
     </footer>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

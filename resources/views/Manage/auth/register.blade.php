@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">管理員註冊</div>
                 <div class="panel-body">
-                  <form class="form-horizontal" method="POST" action="{{ action('User\UserAuthController@register') }}">
+                  <form class="form-horizontal" method="POST" action="{{ action('Manage\ManageAuthController@register') }}">
                       {{ csrf_field() }}
 
                       <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -15,7 +15,6 @@
 
                           <div class="col-md-6">
                               <input id="name" type="text" class="form-control" name="name" required autofocus>
-
                               @if ($errors->has('name'))
                                   <span class="help-block">
                                       <strong>{{ $errors->first('name') }}</strong>
@@ -30,11 +29,14 @@
                           <div class="col-md-6">
                               <input id="nickname" type="text" class="form-control" name="nickname" required autofocus>
 
-                              @if ($errors->has('nickname'))
-                                  <span class="help-block">
+                              <span class="help-block">
+                                  @if ($errors->has('nickname'))
                                       <strong>{{ $errors->first('nickname') }}</strong>
+                                  @endif
+                                      <strong class="error_mas">{{ $errors->first('error_regist_nickname') }}</strong>
                                   </span>
-                              @endif
+
+
                           </div>
                       </div>
 
@@ -43,14 +45,14 @@
 
                           <div class="col-md-6">
                               <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                              @if ($errors->has('email'))
                                   <span class="help-block">
+                                    @if ($errors->has('email'))
                                       <strong>{{ $errors->first('email') }}</strong>
+                                    @endif
+                                      <strong class="error_mas">{{ $errors->first('error_regist_email') }}</strong>
                                   </span>
-                              @endif
                           </div>
-                          <strong class="error_mas">{{ $errors->first('error_regist_email') }}</strong>
+
                       </div>
 
                       <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">

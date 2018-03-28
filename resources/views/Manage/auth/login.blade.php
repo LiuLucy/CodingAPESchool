@@ -7,15 +7,15 @@
             <div class="panel panel-default">
                 <div class="panel-heading">管理員登入</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{action('User\UserAuthController@login')}}">
-                        <div class="form-group{{ $errors->has('card_id') ? ' has-error' : '' }}">
-                            <label for="card_id" class="col-md-4 control-label">帳號</label>
+                    <form class="form-horizontal" method="POST" action="{{action('Manage\ManageAuthController@login')}}">
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label for="email" class="col-md-4 control-label">帳號</label>
 
                             <div class="col-md-6">
-                                <input id="card_id" type="text" class="form-control" name="card_id" value="{{ old('card_id') }}" required autofocus>
+                                <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
                                     <span class="help-block">
-                                        @if ($errors->has('card_id'))
-                                          <strong class="error_mas">{{ $errors->first('card_id') }}</strong>
+                                        @if ($errors->has('email'))
+                                          <strong class="error_mas">{{ $errors->first('email') }}</strong>
                                         @endif
                                     </span>
 
@@ -46,7 +46,6 @@
                                 </div>
                             </div>
                         </div>
-                        <?php session(['test' => 'Lucy']); ?>
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

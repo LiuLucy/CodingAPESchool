@@ -20,12 +20,11 @@ class UserAuthController extends Controller
   protected $studentRegristView = '/users/register/student';
 
   public function showLoginForm() {
-    session()->forget('user_id');
-       return view('User/auth/login');
+      session()->forget('user_id');
+      return view('User/auth/login');
   }
 
   public function login() {
-      session()->forget('user_id');
       $input = request()->all();
       //驗證規則
       $rules = [
@@ -64,8 +63,9 @@ class UserAuthController extends Controller
       }
 
       session()->put('user_id',$User->id);
+      session()->put('user_name',$User->name);
 
-      return view('User.index',['name' => $User->name]);
+      return view('User.index');
   }
 
 
@@ -198,7 +198,6 @@ class UserAuthController extends Controller
       session()->forget('user_id');
       return redirect('/');
   }
-
 
   public function getErrorMsg() {
         $error_message = [

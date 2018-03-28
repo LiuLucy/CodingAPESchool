@@ -1,3 +1,8 @@
+.top-navbar {
+  z-index: 2;
+}
+
+
 .login-btn {
   margin-right: 5px;
 }
@@ -24,6 +29,9 @@ hr.style {
     background-image: linear-gradient(to right, #ccc, #333, #ccc);
     text-align: center;
 }
+hr.style-detail {
+    margin-top: 3rem;
+}
 hr.style-class::after {
   content: "常態課程";
   display: inline-block;
@@ -42,7 +50,13 @@ hr.style-camp:after {
   padding: 0 0.375em;
   background: white;
 }
+
+.top-image {
+   margin-top: 3rem;
+}
+
 .footer {
+ z-index: 2;
  position: relative;
  right: 0;
  bottom: 0;
@@ -52,4 +66,182 @@ hr.style-camp:after {
 }
 .footer h5 {
   color: white;
+}
+
+
+/* slide fixed */
+
+.btn-buy {
+    margin-top: 30px;
+}
+.location {
+  padding: 88px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: rgb(245,188,25);
+  display: block;
+}
+
+.day {
+  padding: 10px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: rgb(245,188,25);
+  display: block;
+}
+
+.sidenav {
+    height: auto;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: rgba(19,75,126,0);
+    overflow-x: hidden;
+    padding-top: 20px;
+    padding-right: 30px;
+}
+
+.class-detail {
+    top:20px;
+    max-width:500px;
+    margin: auto;; /* Same as the width of the sidenav */
+    text-align: center;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    max-width:1080px;
+    margin: auto;; /* Same as the width of the sidenav */
+    text-align: center;
+}
+
+#wrapper.toggled {
+    padding-right: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    right: 250px;
+    width: 0;
+    height: 100%;
+    margin-right: -250px;
+    overflow-y: auto;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:320px) {
+    #wrapper {
+        padding-right: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-right: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+/* loginCard */
+.login-container {
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left:0px;
+  padding-right: 0px;
+  margin-top: 20px;
+  margin-bottom: 60px;
 }
